@@ -1,0 +1,9 @@
+_target_: lightning.Trainer
+
+accelerator: mps
+devices: 1
+max_epochs: 200
+precision: 32-true        # MPS does not support bf16 reliably yet
+log_every_n_steps: 10
+enable_progress_bar: true
+enable_model_summary: true

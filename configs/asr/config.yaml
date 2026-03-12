@@ -1,0 +1,16 @@
+# Main Hydra config for supervised ASR training
+# Run: uv run python -m asr.train.run
+
+defaults:
+  - data: librispeech_dev
+  - model: conformer_tiny
+  - trainer: cpu
+  - logger: none
+  - callbacks: asr_default
+  - _self_
+
+seed: 42
+
+# Optional: resume from checkpoint
+run:
+  ckpt_path: null

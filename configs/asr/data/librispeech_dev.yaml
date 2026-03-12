@@ -1,0 +1,13 @@
+# LibriSpeech dev splits — fast local prototyping (auto-download, ~2GB total)
+# train: dev-clean  (5.4 h, 2703 utterances)
+# val:   dev-other  (5.1 h, 2864 utterances)
+
+_target_: asr.data.lit_data.ASRDataModule
+
+data_root: data/librispeech
+train_split: dev-clean
+val_split: dev-other
+test_split: test-clean
+batch_size: 8
+num_workers: 2
+download: true

@@ -1,0 +1,5 @@
+_target_: lightning.pytorch.loggers.WandbLogger
+
+project: smoltalk
+save_dir: outputs/asr
+log_model: false

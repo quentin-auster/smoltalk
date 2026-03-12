@@ -1,0 +1,12 @@
+# LibriSpeech train-clean-100 — VM-scale run (100 h labeled)
+# Requires: download or manual placement in data_root
+
+_target_: asr.data.lit_data.ASRDataModule
+
+data_root: data/librispeech
+train_split: train-100
+val_split: dev-clean
+test_split: test-clean
+batch_size: 32
+num_workers: 8
+download: false  # download manually or via scripts/asr/download_librispeech.sh

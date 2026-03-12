@@ -1,0 +1,12 @@
+# Common Voice English — download manually from https://commonvoice.mozilla.org/
+# Expects: data_root/validated.tsv and data_root/clips/*.mp3
+
+_target_: asr.data.lit_data.ASRDataModule
+
+data_root: data/common_voice/en
+train_split: train
+val_split: dev
+test_split: test
+batch_size: 16
+num_workers: 4
+download: false  # must download from Mozilla Common Voice

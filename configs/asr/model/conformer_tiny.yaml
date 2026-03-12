@@ -1,0 +1,21 @@
+# Tiny Conformer — Milestone 1 baseline
+# ~6 layers, d_model=256, ~13M params
+# Left-context=-1 for offline training; set >=64 for streaming
+
+# Note: vocab_size is injected at runtime from ASRDataModule.vocab_size
+# and must NOT be set here (handled in train/run.py).
+
+n_mels: 80
+d_model: 256
+n_layers: 6
+n_heads: 4
+d_ff: 1024
+kernel_size: 31
+dropout: 0.1
+left_context: -1          # -1 = full offline attention; set e.g. 64 for streaming
+
+lr: 5.0e-4
+weight_decay: 1.0e-6
+betas: [0.9, 0.98]
+warmup_steps: 10000
+log_wer_every_n_epochs: 5
