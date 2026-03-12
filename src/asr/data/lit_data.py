@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+from functools import partial
 from pathlib import Path
 from typing import Callable
 
@@ -102,8 +103,8 @@ class ASRDataModule(L.LightningDataModule):
             batch_size=self.batch_size,
             shuffle=shuffle,
             num_workers=self.num_workers,
-            collate_fn=lambda batch: asr_collate(batch, pad_label=self.vocab.pad_id),
-            pin_memory=True,
+            collate_fn=partial(asr_collate, pad_label=self.vocab.pad_id),
+            pin_memory=False,
             drop_last=shuffle,
         )
 

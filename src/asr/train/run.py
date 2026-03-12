@@ -16,11 +16,11 @@ from __future__ import annotations
 
 import logging
 import os
-from pathlib import Path
 
 import hydra
 import lightning as L
 from omegaconf import DictConfig, OmegaConf
+from decouple import config as decouple_config
 
 log = logging.getLogger(__name__)
 
@@ -29,13 +29,19 @@ log = logging.getLogger(__name__)
 def main(cfg: DictConfig) -> None:
     log.info("ASR training config:\n%s", OmegaConf.to_yaml(cfg))
 
+    # Load W&B API key from .env when using the wandb logger.
+    if (cfg.get("logger") or {}).get("_target_", "").endswith("WandbLogger"):
+        wandb_key = str(decouple_config("WANDB_API_KEY", default=""))
+        if wandb_key:
+            os.environ["WANDB_API_KEY"] = wandb_key
+
     L.seed_everything(cfg.get("seed", 42), workers=True)
 
     # ── DataModule ────────────────────────────────────────────────────────────
     datamodule: L.LightningDataModule = hydra.utils.instantiate(cfg.data)
 
     # ── Model ─────────────────────────────────────────────────────────────────
-    # Pass vocab_size from the DataModule so the config stays DRY
+    # Pass vocab_size from the DataModule so the config stays DRY.
     datamodule.setup("fit")
     vocab_size = datamodule.vocab_size
 

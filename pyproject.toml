@@ -15,6 +15,9 @@ dependencies = [
     "python-decouple>=3.8",
     "wonderwords>=3.0",
     "rich>=13.0",
+    "torchaudio>=2.10.0",
+    "jiwer>=4.0.0",
+    "wandb>=0.24.2",
 ]
 
 [project.optional-dependencies]
